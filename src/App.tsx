@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components'
+import Navbar from './components/navbar'
+import Footer from './components/footer'
+import Modal from './components/create-modal'
+import reposService from './services/repos'
+import Repos from './types/repos';
+
+const Main = styled.div`
+height: 200vh;
+justify-content: space-between;
+  display:flex;
+  flex-direction: column;
+`;
 
 function App() {
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    getRepos()
+  }, [])
+
+  const handleClose = () => {
+      setIsOpen(!isOpen)
+  }
+
+  const createRepo = async (body: Repos) => {
+    await reposService.postRepos(body)
+  }
+
+  const getRepos = async () => {
+    const repos = await reposService.getRepos()
+    console.log(repos);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <Navbar setIsOpen={setIsOpen} />
+      <Footer />
+      <Modal isOpen={isOpen} handleClose={handleClose} createRepos={createRepo} />
+    </Main>
   );
 }
 
