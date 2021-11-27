@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <footer className="page-footer font-small blue pt-4 bg-light">
+        <footer style={{marginTop: 'auto'}} className="page-footer font-small blue pt-4 bg-light">
         
           <div className="container-fluid text-center text-md-left">
         

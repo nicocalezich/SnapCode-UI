@@ -7,42 +7,48 @@ import Footer from './components/footer'
 import Modal from './components/create-modal'
 import reposService from './services/repos'
 import Repos from './types/repos';
+import Aside from './components/aside'
 
-const Main = styled.div`
-height: 200vh;
-justify-content: space-between;
+const Container = styled.div`
   display:flex;
   flex-direction: column;
+`;
+
+const MainContent = styled.div`
+height: 200vh;
+  justify-content: space-between;
+  display:flex;
+  flex-direction: column;
+  flex:1;
 `;
 
 function App() {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    getRepos()
-  }, [])
-
   const handleClose = () => {
-      setIsOpen(!isOpen)
+    setIsOpen(!isOpen)
   }
 
   const createRepo = async (body: Repos) => {
     await reposService.postRepos(body)
   }
 
-  const getRepos = async () => {
-    const repos = await reposService.getRepos()
-    console.log(repos);
-  }
-
-
   return (
-    <Main>
+    <Container>
       <Navbar setIsOpen={setIsOpen} />
-      <Footer />
-      <Modal isOpen={isOpen} handleClose={handleClose} createRepos={createRepo} />
-    </Main>
+      <div style={{ display: 'flex' }}>
+        <Aside />
+        <div style={{display: 'flex', flex:1}}>
+          <MainContent>
+            <Footer />
+            <Modal isOpen={isOpen} handleClose={handleClose} createRepos={createRepo} />
+          </MainContent>
+        </div>
+      </div>
+
+    </Container>
+
   );
 }
 
