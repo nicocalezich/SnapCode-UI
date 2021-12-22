@@ -8,6 +8,7 @@ import Modal from './components/create-modal'
 import reposService from './services/repos'
 import Repos from './types/repos';
 import Aside from './components/aside'
+import Box from './components/box'
 
 const Container = styled.div`
   display:flex;
@@ -41,6 +42,7 @@ function App() {
         <Aside />
         <div style={{display: 'flex', flex:1}}>
           <MainContent>
+            <Box />
             <Footer />
             <Modal isOpen={isOpen} handleClose={handleClose} createRepos={createRepo} />
           </MainContent>
