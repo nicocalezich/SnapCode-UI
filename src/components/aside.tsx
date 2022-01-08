@@ -16,18 +16,16 @@ const RepoComponent = styled.li`
     }
 `;
 
+
+
+
 type AsideProps = {
     handleSelectedRepo: (repo: Repos) => void
+    isFetching: boolean
+    repos: Repos[]
 }
 
-const Aside = ({handleSelectedRepo}: AsideProps) => {
-
-    const [isFetching, setIsFetching] = useState(true)
-    const [repos, setRepos] = useState([] as any as Repos[])
-   
-    useEffect(() => {
-        getRepos()
-    }, [])
+const Aside = ({ handleSelectedRepo, isFetching, repos }: AsideProps) => {
 
     const renderRepos = () => {
         return (
@@ -44,11 +42,7 @@ const Aside = ({handleSelectedRepo}: AsideProps) => {
             </ul>)
     }
 
-    const getRepos = async () => {
-        const resp = await reposService.getRepos()
-        setIsFetching(false)
-        setRepos(resp as any)
-    }
+
 
 
 
