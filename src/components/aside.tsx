@@ -16,12 +16,15 @@ const RepoComponent = styled.li`
     }
 `;
 
-const Aside = () => {
+type AsideProps = {
+    handleSelectedRepo: (repo: Repos) => void
+}
+
+const Aside = ({handleSelectedRepo}: AsideProps) => {
 
     const [isFetching, setIsFetching] = useState(true)
     const [repos, setRepos] = useState([] as any as Repos[])
-    const [selectedRepo, setSelectedRepo] = useState(null as any as Repos)
-
+   
     useEffect(() => {
         getRepos()
     }, [])
@@ -32,7 +35,7 @@ const Aside = () => {
                 {
                     repos.map(x => {
                         return (
-                            <RepoComponent onClick={() => { setSelectedRepo(x) }}>
+                            <RepoComponent onClick={() => { handleSelectedRepo(x) }}>
                                 {x.title}
                             </RepoComponent>
                         )

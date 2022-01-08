@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import Repos from '../types/repos';
 
 const Container = styled.div`
     display: block;
@@ -9,12 +10,15 @@ const Container = styled.div`
     background: #DFDEDE;
 `;
 
-const Box = () => {
+type BoxProps = {
+    selectedRepo: Repos
+}
+
+const Box = ({selectedRepo}: BoxProps) => {
     return (
         <Container>
-            <p>System.out.print("hola mundo")</p>
-            <p>System.out.print("hola mundo")</p>
-            <p>System.out.print("hola mundo")</p>
+            <span>{selectedRepo?.title}</span>
+            <p>{selectedRepo?.code}</p>
         </Container>
     )
 }

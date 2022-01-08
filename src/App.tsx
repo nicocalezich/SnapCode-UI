@@ -26,6 +26,7 @@ height: 200vh;
 function App() {
 
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedRepo, setSelectedRepo] = useState(null as any as Repos)
 
   const handleClose = () => {
     setIsOpen(!isOpen)
@@ -35,14 +36,18 @@ function App() {
     await reposService.postRepos(body)
   }
 
+  const handleSelectedRepo = (repo: Repos) => {
+    setSelectedRepo(repo)
+}
+
   return (
     <Container>
       <Navbar setIsOpen={setIsOpen} />
       <div style={{ display: 'flex' }}>
-        <Aside />
+        <Aside handleSelectedRepo={handleSelectedRepo}/>
         <div style={{display: 'flex', flex:1}}>
           <MainContent>
-            <Box />
+            <Box selectedRepo={selectedRepo}/>
             <Footer />
             <Modal isOpen={isOpen} handleClose={handleClose} createRepos={createRepo} />
           </MainContent>
