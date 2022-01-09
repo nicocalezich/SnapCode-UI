@@ -27,6 +27,19 @@ function App() {
 
   const [isOpen, setIsOpen] = useState(false)
   const [selectedRepo, setSelectedRepo] = useState(null as any as Repos)
+  const [repos, setRepos] = useState([] as any as Repos[])
+  const [isFetching, setIsFetching] = useState(true)
+
+  const getRepos = async () => {
+    const resp = await reposService.getRepos()
+    setIsFetching(false)
+    setRepos(resp as any)
+  }
+
+  useEffect(() => {
+    getRepos()
+  }, [])
+
 
   const handleClose = () => {
     setIsOpen(!isOpen)
@@ -34,6 +47,7 @@ function App() {
 
   const createRepo = async (body: Repos) => {
     await reposService.postRepos(body)
+    setRepos([...repos, body])
   }
 
   const handleSelectedRepo = (repo: Repos) => {
@@ -44,7 +58,7 @@ function App() {
     <Container>
       <Navbar setIsOpen={setIsOpen} />
       <div style={{ display: 'flex' }}>
-        <Aside handleSelectedRepo={handleSelectedRepo}/>
+        <Aside isFetching={isFetching} repos={repos}  handleSelectedRepo={handleSelectedRepo}/>
         <div style={{display: 'flex', flex:1}}>
           <MainContent>
             <Box selectedRepo={selectedRepo}/>
