@@ -38,7 +38,7 @@ function App() {
 
   const handleSelectedRepo = (repo: Repos) => {
     setSelectedRepo(repo)
-}
+  }
 
   return (
     <Container>
