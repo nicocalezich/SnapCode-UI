@@ -8,17 +8,41 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     background: #DFDEDE;
+    counter-reset: section;
+`;
+
+const Code = styled.div`
+    &:before {
+        counter-increment: section;
+        content: counter(section) ". ";
+        display: inline-block;
+        width: 2em;
+        padding-left: auto;
+        margin-left: auto;
+        text-align: left;
+    }
+`;
+
+const Copy = styled.button`
+    position: absolute;
+    right: 0;
+    bottom: 0;   
 `;
 
 type BoxProps = {
     selectedRepo: Repos
 }
 
-const Box = ({selectedRepo}: BoxProps) => {
+const stringToArray = (code: String, delimiter: string) => {
+    return code.split(delimiter)
+}
+
+const Box = ({ selectedRepo }: BoxProps) => {
     return (
         <Container>
             <span>{selectedRepo?.title}</span>
-            <p>{selectedRepo?.code}</p>
+            {selectedRepo ? stringToArray(selectedRepo.code, "\n").map((line) => <Code>{line}</Code>) : null}
+            <Copy onClick={() => {navigator.clipboard.writeText(selectedRepo.code)}}>Copy</Copy>
         </Container>
     )
 }
