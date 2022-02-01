@@ -38,11 +38,25 @@ const stringToArray = (code: String, delimiter: string) => {
 }
 
 const Box = ({ selectedRepo }: BoxProps) => {
+
+    const { code, title = '' } = selectedRepo ?? {}
+
+    const handleSelectedRepo = () => {
+        if (selectedRepo) {
+            return stringToArray(code, "\n").map((line) => <Code>{line}</Code>)
+        }
+        return <></>
+    }
+
+    const copyFromParameter = () => {
+        navigator.clipboard.writeText(code)
+    }
+
     return (
         <Container>
-            <span>{selectedRepo?.title}</span>
-            {selectedRepo ? stringToArray(selectedRepo.code, "\n").map((line) => <Code>{line}</Code>) : null}
-            <Copy onClick={() => {navigator.clipboard.writeText(selectedRepo.code)}}>Copy</Copy>
+            <span>{title}</span>
+            {handleSelectedRepo()}
+            <Copy onClick={copyFromParameter}>Copy</Copy>
         </Container>
     )
 }
