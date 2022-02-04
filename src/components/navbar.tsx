@@ -1,10 +1,11 @@
 import React from 'react'
 
 type NavbarProps = {
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    handleSerched: (event: any) => void
 }
 
-const Navbar = ({ setIsOpen }: NavbarProps) => {
+const Navbar = ({ setIsOpen, handleSerched }: NavbarProps) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -14,8 +15,7 @@ const Navbar = ({ setIsOpen }: NavbarProps) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" >Search</button>
+                        <input onChange={handleSerched} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-primary ms-2" onClick={(e) => { e.preventDefault(); setIsOpen(true)}}>Create</button>
                     </form>
                 </div>

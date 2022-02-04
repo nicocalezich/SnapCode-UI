@@ -16,9 +16,6 @@ const RepoComponent = styled.li`
     }
 `;
 
-
-
-
 type AsideProps = {
     handleSelectedRepo: (repo: Repos) => void
     isFetching: boolean
@@ -41,10 +38,6 @@ const Aside = ({ handleSelectedRepo, isFetching, repos }: AsideProps) => {
                 }
             </ul>)
     }
-
-
-
-
 
     return (
         <Container className="">
