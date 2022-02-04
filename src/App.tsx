@@ -29,6 +29,8 @@ function App() {
   const [selectedRepo, setSelectedRepo] = useState(null as any as Repos)
   const [repos, setRepos] = useState([] as any as Repos[])
   const [isFetching, setIsFetching] = useState(true)
+  const [criteria, setCriteria] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
 
   const getRepos = async () => {
     const resp = await reposService.getRepos()
@@ -40,6 +42,14 @@ function App() {
     getRepos()
   }, [])
 
+  const handleSerched = (input: string) => {
+    setCriteria(input)
+    setIsSearching(false)
+  }
+
+  const filteredRepos = () => {
+    return repos.filter((repo) => repo.title.includes(criteria))
+  }
 
   const handleClose = () => {
     setIsOpen(!isOpen)
@@ -56,9 +66,9 @@ function App() {
 
   return (
     <Container>
-      <Navbar setIsOpen={setIsOpen} />
+      <Navbar setIsOpen={setIsOpen} handleSerched={handleSerched} setIsSearching={setIsSearching}/>
       <div style={{ display: 'flex' }}>
-        <Aside isFetching={isFetching} repos={repos}  handleSelectedRepo={handleSelectedRepo}/>
+        <Aside isFetching={isFetching} repos={filteredRepos()} handleSelectedRepo={handleSelectedRepo} isSearching={isSearching}/>
         <div style={{display: 'flex', flex:1}}>
           <MainContent>
             <Box selectedRepo={selectedRepo}/>
