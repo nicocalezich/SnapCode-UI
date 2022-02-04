@@ -20,9 +20,10 @@ type AsideProps = {
     handleSelectedRepo: (repo: Repos) => void
     isFetching: boolean
     repos: Repos[]
+    isSearching: boolean
 }
 
-const Aside = ({ handleSelectedRepo, isFetching, repos }: AsideProps) => {
+const Aside = ({ handleSelectedRepo, isFetching, repos, isSearching }: AsideProps) => {
 
     const renderRepos = () => {
         return (
@@ -45,6 +46,9 @@ const Aside = ({ handleSelectedRepo, isFetching, repos }: AsideProps) => {
                 <h6 className="" style={{ padding: 10 }}>Repos</h6>
                 {
                     isFetching ? <h6>Loading...</h6> : renderRepos()
+                }
+                {
+                    isSearching ? <h6>Searching...</h6> : <></>
                 }
             </div>
         </Container>
