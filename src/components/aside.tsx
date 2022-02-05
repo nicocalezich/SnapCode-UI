@@ -6,7 +6,7 @@ import { BACKGROUND } from '../constants/colors'
 const Container = styled.div`
     display:flex;
     width: 200px;
-    background: #f6eff4;
+    background: ${BACKGROUND};
 `;
 
 const RepoComponent = styled.li`
