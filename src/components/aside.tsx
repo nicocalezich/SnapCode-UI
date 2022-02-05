@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import reposService from '../services/repos';
 import Repos from '../types/repos';
 
 const Container = styled.div`

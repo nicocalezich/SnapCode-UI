@@ -9,10 +9,12 @@ import reposService from './services/repos'
 import Repos from './types/repos';
 import Aside from './components/aside'
 import Box from './components/box'
+import { BACKGROUND } from './constants/colors';
 
 const Container = styled.div`
   display:flex;
   flex-direction: column;
+  background: ${BACKGROUND} !important;
 `;
 
 const MainContent = styled.div`
